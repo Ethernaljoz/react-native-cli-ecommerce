@@ -22,12 +22,14 @@ const LoginScreen = () => {
   });
   return (
     <ScreenWrapper>
-      <ScrollView contentContainerStyle={styles.loginWrapper}>
+      <ScrollView
+      // contentContainerStyle={styles.loginWrapper}
+      >
         <View>
 
 
             <Text style={styles.loginText} >
-              LOGIN
+              Login
             </Text>
 
           <View style={styles.formStyle}>

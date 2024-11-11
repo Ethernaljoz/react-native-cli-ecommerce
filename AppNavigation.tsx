@@ -21,7 +21,7 @@ export const AuthStackScreen = ( )=>{
       <AuthStack.Navigator initialRouteName="Login" >
         <AuthStack.Screen name="Welcome"  component={WelcomeScreen} />
         <AuthStack.Screen name="Login" options={{headerShown:false}}  component={LoginScreen} />
-        <AuthStack.Screen name="Register"  component={RegisterScreen} />
+        <AuthStack.Screen name="Register" options={{headerShown:false}}  component={RegisterScreen} />
       </AuthStack.Navigator>
     );
   };
