@@ -6,7 +6,6 @@ import { AuthStackScreen } from './AppNavigation';
 
 
 
-
 const App = () => {
   return (
    <NavigationContainer>

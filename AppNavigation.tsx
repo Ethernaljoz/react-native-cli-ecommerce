@@ -6,16 +6,22 @@ import LoginScreen from './src/screens/auth/Login';
 import RegisterScreen from './src/screens/auth/Register';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+export type AuthStackParams = {
+  Welcome;
+  Login;
+  Register;
+}
 
-const AuthStack = createNativeStackNavigator();
+
+const AuthStack = createNativeStackNavigator<AuthStackParams>();
 // const RootStack = createBottomTabNavigator();
 
 export const AuthStackScreen = ( )=>{
     return(
-      <AuthStack.Navigator initialRouteName="welcome" >
-        <AuthStack.Screen name="welcome"  component={WelcomeScreen} />
-        <AuthStack.Screen name="login"  component={LoginScreen} />
-        <AuthStack.Screen name="register"  component={RegisterScreen} />
+      <AuthStack.Navigator initialRouteName="Login" >
+        <AuthStack.Screen name="Welcome"  component={WelcomeScreen} />
+        <AuthStack.Screen name="Login" options={{headerShown:false}}  component={LoginScreen} />
+        <AuthStack.Screen name="Register"  component={RegisterScreen} />
       </AuthStack.Navigator>
     );
   };

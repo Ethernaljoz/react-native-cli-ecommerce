@@ -1,15 +1,17 @@
-import { ActivityIndicator, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput,  View } from 'react-native';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
 import ScreenWrapper from '../../components/ScreenWrapper';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParams } from '../../../AppNavigation';
+import CustomTextInput from '../../components/CustomTextInput';
 
 const RegisterScreen = () => {
-  const navigation = useNavigation();
-  const { width, height } = useWindowDimensions();
+  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
 
     const onSubmit = (data: any) => {
-      register(data);
+      // register(data);
     };
   const {
     control,
@@ -17,9 +19,9 @@ const RegisterScreen = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: "",
-      email: "",
-      password: "",
+      username: '',
+      email: '',
+      password: '',
     },
   });
   return (
@@ -39,7 +41,7 @@ const RegisterScreen = () => {
                   name="username"
                   control={control}
                   render={({ field: { onChange, value } }) => (
-                    <TextInput
+                    <CustomTextInput
                       value={value}
                       onChangeText={onChange}
                       placeholder="enter your name"
@@ -53,11 +55,12 @@ const RegisterScreen = () => {
                   name="email"
                   control={control}
                   render={({ field: { onChange, value } }) => (
-                    <TextInput
+                    <CustomTextInput
                       value={value}
                       onChangeText={onChange}
                       placeholder="enter your name"
-                      autoCapitalize="none"
+                      keyboardType="email-address"
+                      // autoCapitalize="none"
                     />
                   )}
                 />
@@ -68,7 +71,7 @@ const RegisterScreen = () => {
                   name="password"
                   control={control}
                   render={({ field: { onChange, value } }) => (
-                    <TextInput
+                    <CustomTextInput
                       value={value}
                       onChangeText={onChange}
                       placeholder="enter your name"
@@ -83,13 +86,13 @@ const RegisterScreen = () => {
               onPress={ handleSubmit(onSubmit)}
             >
               {
-                loading ? <ActivityIndicator size="large" color="white" /> :
+                // loading ? <ActivityIndicator size="large" color="white" /> :
               <Text >Register</Text>}
             </Pressable>
           </View>
           <View >
             <Text >You have already an account ? </Text>
-            <Pressable onPress={() => navigation.navigate('login')}>
+            <Pressable onPress={() => navigation.navigate('Login')}>
               <Text >
                 Sign in
               </Text>
@@ -104,3 +107,4 @@ const RegisterScreen = () => {
 export default RegisterScreen;
 
 
+const styles = StyleSheet.create({});

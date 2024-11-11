@@ -1,6 +1,7 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppColors } from '../theme/colors';
 
 interface screenProps{
     children:React.ReactNode
@@ -8,9 +9,9 @@ interface screenProps{
 
 const ScreenWrapper = ({children}:screenProps) => {
     const { top } = useSafeAreaInsets();
-    const paddingTop = top > 0 ?top+5 : 30;
+    const paddingTop = top > 0 ? top + 5 : 30;
   return (
-    <View style={{flex:1, paddingTop, backgroundColor:"white",paddingHorizontal:20}} >
+    <View style={[{paddingTop}, styles.container]} >
       {
         children
       }
@@ -19,3 +20,11 @@ const ScreenWrapper = ({children}:screenProps) => {
 };
 
 export default ScreenWrapper;
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor: AppColors.backgroundColor,
+    paddingHorizontal:20,
+  },
+});
