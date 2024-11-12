@@ -7,6 +7,22 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../../../AppNavigation';
 import CustomTextInput from '../../components/CustomTextInput';
 import { AppColors } from '../../theme/colors';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+
+
+
+const RegisterSchema = z.object({
+  username: z.string().min(4),
+  email: z.string().email(),
+  password: z.string().min(8).max(20),
+  confirmPassword: z.string().min(8).max(20),
+}).refine( (data)=> data.password === data.confirmPassword,{
+  message:'password do not match',
+});
+
+type RegisterSchemaType = z.infer<typeof RegisterSchema>;
 
 const RegisterScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
@@ -18,13 +34,14 @@ const RegisterScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<RegisterSchemaType>({
     defaultValues: {
       username: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
+    resolver: zodResolver(RegisterSchema),
   });
   return (
     <ScreenWrapper>
@@ -52,6 +69,8 @@ const RegisterScreen = () => {
                     />
                   )}
                 />
+                {errors.username && <Text style={styles.textError}>{errors.username.message}</Text>}
+
               </View>
 
               {/* Email input */}
@@ -68,6 +87,7 @@ const RegisterScreen = () => {
                     />
                   )}
                 />
+                {errors.email && <Text style={styles.textError}>{errors.email.message}</Text>}
               </View>
 
               {/* Password input */}
@@ -85,6 +105,7 @@ const RegisterScreen = () => {
                     />
                   )}
                 />
+                {errors.password && <Text style={styles.textError}>{errors.password.message}</Text>}
               </View>
 
               {/* ConfirmPassword input */}
@@ -102,6 +123,7 @@ const RegisterScreen = () => {
                     />
                   )}
                 />
+                {errors.confirmPassword && <Text style={styles.textError}>{errors.confirmPassword.message}</Text>}
               </View>
 
             <Pressable
@@ -141,6 +163,12 @@ const styles = StyleSheet.create({
       fontWeight:'medium',
       marginBottom:4,
     },
+    textError:{
+      color:AppColors.mainColor,
+      fontSize:16,
+      fontWeight:'medium',
+      marginTop:4,
+    }, 
     pressableStyle:{
       width:'100%',
       height:60,

@@ -45,5 +45,6 @@ const styles = StyleSheet.create({
         padding:10,
         borderRadius:10,
         color: AppColors.textColor,
+        fontSize:16,
       },
 });

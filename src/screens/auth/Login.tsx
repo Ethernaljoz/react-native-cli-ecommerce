@@ -7,6 +7,17 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../../../AppNavigation';
 import { AppColors } from '../../theme/colors';
 import CustomTextInput from '../../components/CustomTextInput';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+
+
+
+const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8).max(20),
+});
+type LoginSchemaType = z.infer<typeof LoginSchema>;
 
 const LoginScreen = () => {
 
@@ -14,12 +25,16 @@ const LoginScreen = () => {
   const onSubmit = (data: any) => {
     // login(data)
   };
-  const { control, handleSubmit,formState:{ errors } } = useForm({
+  const { control, handleSubmit,formState:{ errors } } = useForm<LoginSchemaType>(
+    {
     defaultValues: {
       email: '',
       password: '',
     },
-  });
+    resolver: zodResolver(LoginSchema),
+  }
+  // { resolver: zodResolver(LoginSchema) }
+);
   return (
     <ScreenWrapper>
       <ScrollView
@@ -48,6 +63,7 @@ const LoginScreen = () => {
                     />
                   )}
                 />
+                {errors.email && <Text style={styles.textError}>{errors.email.message}</Text>}
               </View>
 
               {/* Password input */}
@@ -65,6 +81,7 @@ const LoginScreen = () => {
                     />
                   )}
                 />
+                 {errors.password && <Text style={styles.textError}>{errors.password.message}</Text>}
               </View>
 
 
@@ -103,6 +120,12 @@ const styles = StyleSheet.create({
     fontSize:18,
     fontWeight:'medium',
     marginBottom:4,
+  },
+  textError:{
+    color:AppColors.mainColor,
+    fontSize:16,
+    fontWeight:'medium',
+    marginTop:4,
   },
 
   pressableStyle:{
