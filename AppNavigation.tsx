@@ -4,17 +4,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from './src/screens/auth/Welcome';
 import LoginScreen from './src/screens/auth/Login';
 import RegisterScreen from './src/screens/auth/Register';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './src/screens/protected/Home';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export type AuthStackParams = {
-  Welcome;
-  Login;
-  Register;
+  Welcome:undefined;
+  Login:undefined;
+  Register:undefined;
+}
+export type RootStackParams = {
+  Home:undefined;
 }
 
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
-// const RootStack = createBottomTabNavigator();
+const RootStack = createBottomTabNavigator<RootStackParams>();
 
 export const AuthStackScreen = ( )=>{
     return(
@@ -27,4 +31,10 @@ export const AuthStackScreen = ( )=>{
   };
 
 
-
+export const RootStackScreen = ()=>{
+return(
+  <RootStack.Navigator>
+    <RootStack.Screen name ="Home" component={HomeScreen} />
+  </RootStack.Navigator>
+);
+};

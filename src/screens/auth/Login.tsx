@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View ,ActivityIndicator, Alert} from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View ,ActivityIndicator} from 'react-native';
 import React from 'react';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { Controller, useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from '../../redux/api/usersApiSlice';
 import { useAppDispatch } from '../../redux/hook';
 import { setCredentials } from '../../redux/features/authSlice';
+import { Toast } from 'toastify-react-native';
 
 
 
@@ -29,17 +30,17 @@ const LoginScreen = () => {
   const [login, {isLoading}] = useLoginMutation();
   const dispatch = useAppDispatch();
 
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams >>();
   const onSubmit = async (data : LoginSchemaType) => {
     try{
 
       const res = await login(data).unwrap();
       dispatch(setCredentials({...res}));
+      Toast.success('login successfully');
       // navigation.navigate('Home');
 
     }catch(error : any){
-      console.log(error);
-      Alert.alert('ERROR',error?.message);
+      Toast.error(`error ${error?.data.message}`);
     }
   };
   const { control, handleSubmit,formState:{ errors } } = useForm<LoginSchemaType>(
