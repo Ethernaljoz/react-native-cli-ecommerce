@@ -9,6 +9,10 @@ import CustomTextInput from '../../components/CustomTextInput';
 import { AppColors } from '../../theme/colors';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRegisterMutation } from '../../redux/api/usersApiSlice';
+import { useAppDispatch } from '../../redux/hook';
+import { setCredentials } from '../../redux/features/authSlice';
+import { Toast } from 'toastify-react-native';
 
 
 
@@ -26,10 +30,22 @@ type RegisterSchemaType = z.infer<typeof RegisterSchema>;
 
 const RegisterScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+  const [register, {isLoading}] = useRegisterMutation();
+  const dispatch = useAppDispatch();
 
-    const onSubmit = (data: any) => {
-      // register(data);
+    const onSubmit = async(data: RegisterSchemaType) => {
+      try {
+        const res = await register(data).unwrap();
+        dispatch(setCredentials({...res}));
+        Toast.success('Account creates successfuly');
+        navigation.navigate('Login');
+
+      } catch (error:any) {
+        Toast.error(`Error ${error?.data.message}`);
+      }
     };
+
+
   const {
     control,
     handleSubmit,
@@ -43,6 +59,8 @@ const RegisterScreen = () => {
     },
     resolver: zodResolver(RegisterSchema),
   });
+
+
   return (
     <ScreenWrapper>
        <ScrollView
@@ -131,7 +149,7 @@ const RegisterScreen = () => {
               onPress={handleSubmit(onSubmit)}
             >
               {
-                // loading ? <ActivityIndicator size="large" color="white" /> :
+                isLoading ? <ActivityIndicator size="large" color="white" /> :
               <Text style={styles.pressableText}>register</Text>
               }
             </Pressable>
@@ -168,7 +186,7 @@ const styles = StyleSheet.create({
       fontSize:16,
       fontWeight:'medium',
       marginTop:4,
-    }, 
+    },
     pressableStyle:{
       width:'100%',
       height:60,
