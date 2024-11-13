@@ -1,5 +1,5 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View ,ActivityIndicator, Alert} from 'react-native';
+import React from 'react';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,9 @@ import { AppColors } from '../../theme/colors';
 import CustomTextInput from '../../components/CustomTextInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLoginMutation } from '../../redux/api/usersApiSlice';
+import { useAppDispatch } from '../../redux/hook';
+import { setCredentials } from '../../redux/features/authSlice';
 
 
 
@@ -19,11 +22,25 @@ const LoginSchema = z.object({
 });
 type LoginSchemaType = z.infer<typeof LoginSchema>;
 
+
+
 const LoginScreen = () => {
 
+  const [login, {isLoading}] = useLoginMutation();
+  const dispatch = useAppDispatch();
+
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams>>();
-  const onSubmit = (data: any) => {
-    // login(data)
+  const onSubmit = async (data : LoginSchemaType) => {
+    try{
+
+      const res = await login(data).unwrap();
+      dispatch(setCredentials({...res}));
+      // navigation.navigate('Home');
+
+    }catch(error : any){
+      console.log(error);
+      Alert.alert('ERROR',error?.message);
+    }
   };
   const { control, handleSubmit,formState:{ errors } } = useForm<LoginSchemaType>(
     {
@@ -33,7 +50,6 @@ const LoginScreen = () => {
     },
     resolver: zodResolver(LoginSchema),
   }
-  // { resolver: zodResolver(LoginSchema) }
 );
   return (
     <ScreenWrapper>
@@ -46,6 +62,7 @@ const LoginScreen = () => {
             <Text style={styles.loginText} >
               Login
             </Text>
+
 
           <View style={styles.formStyle}>
 
@@ -90,7 +107,7 @@ const LoginScreen = () => {
               onPress={handleSubmit(onSubmit)}
             >
               {
-                // loading ? <ActivityIndicator size="large" color="white" /> :
+                isLoading ? <ActivityIndicator size="large" color="white" /> :
               <Text style={styles.pressableText}>Login</Text>
               }
             </Pressable>
