@@ -102,6 +102,7 @@ const RegisterScreen = () => {
                       value={value}
                       onChangeText={onChange}
                       placeholder="enter your email"
+                      autoCapitalize="none"
                     />
                   )}
                 />

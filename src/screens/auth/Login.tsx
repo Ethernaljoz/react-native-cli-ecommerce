@@ -30,14 +30,13 @@ const LoginScreen = () => {
   const [login, {isLoading}] = useLoginMutation();
   const dispatch = useAppDispatch();
 
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams >>();
+  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParams  >>();
   const onSubmit = async (data : LoginSchemaType) => {
     try{
 
       const res = await login(data).unwrap();
       dispatch(setCredentials({...res}));
       Toast.success('login successfully');
-      // navigation.navigate('Home');
 
     }catch(error : any){
       Toast.error(`error ${error?.data.message}`);
@@ -78,6 +77,7 @@ const LoginScreen = () => {
                       value={value}
                       onChangeText={onChange}
                       placeholder="enter your email"
+                      autoCapitalize="none"
                     />
                   )}
                 />

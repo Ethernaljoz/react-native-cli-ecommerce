@@ -9,7 +9,8 @@ type InputProps = {
    keyboardType?:  KeyboardTypeOptions
    onBlur? : ()=> void,
    onFocus?: ()=> void,
-   secureTextEntry?: boolean
+   secureTextEntry?: boolean,
+   autoCapitalize?: 'none'| 'sentences'| 'words'| 'characters'
 }
 
 const CustomTextInput = (props:InputProps) => {
@@ -31,6 +32,7 @@ const CustomTextInput = (props:InputProps) => {
     onBlur={customBlur}
     onFocus={customFocus}
     style= {[{borderColor: inputFocusColor},styles.inputStyle]}
+
     />
   );
 };
