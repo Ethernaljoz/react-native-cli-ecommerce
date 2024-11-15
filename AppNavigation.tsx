@@ -47,7 +47,7 @@ export const AuthStackScreen = () => {
 export const RootStackScreen = () => {
   return (
     <RootStack.Navigator initialRouteName="Home">
-      <RootStack.Screen name="Home" component={HomeScreen} />
+      <RootStack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
       <RootStack.Screen name="Search" component={SearchScreen} />
       <RootStack.Screen name="Cart" component={CartScreen} />
       <RootStack.Screen name="Profile" component={ProfileScreen} />
@@ -57,9 +57,6 @@ export const RootStackScreen = () => {
 
 const AppLayout = () => {
   const {userInfo} = useAppSelector(state => state.auth);
-  console.log('====================================');
-  console.log(userInfo);
-  console.log('====================================');
 
   return (
     <NavigationContainer>
