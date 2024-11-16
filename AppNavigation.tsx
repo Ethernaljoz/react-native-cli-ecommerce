@@ -10,6 +10,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import SearchScreen from './src/screens/protected/Search';
 import CartScreen from './src/screens/protected/Cart';
 import ProfileScreen from './src/screens/protected/Profile';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AppColors } from './src/theme/colors';
 
 export type AuthStackParams = {
   Welcome : undefined;
@@ -46,7 +48,33 @@ export const AuthStackScreen = () => {
 
 export const RootStackScreen = () => {
   return (
-    <RootStack.Navigator initialRouteName="Home">
+    <RootStack.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
+      tabBarStyle:{
+        backgroundColor:AppColors.backgroundColor,
+        // fontWeight:'bold',
+      },
+      // eslint-disable-next-line react/no-unstable-nested-components
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused ? 'home' : 'home-outline';
+        } else if (route.name === 'Search') {
+          iconName = focused ? 'search' : 'search-outline';
+        }
+         else if (route.name === 'Cart') {
+          iconName = focused ? 'cart' : 'cart-outline';
+        }
+         else if (route.name === 'Profile') {
+          iconName = focused ? 'person' : 'person-outline';
+        }
+
+        // You can return any component that you like here!
+        return <Ionicons name={iconName!} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: AppColors.mainColor,
+      tabBarInactiveTintColor: 'gray',
+    })} >
       <RootStack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
       <RootStack.Screen name="Search" component={SearchScreen} />
       <RootStack.Screen name="Cart" component={CartScreen} />

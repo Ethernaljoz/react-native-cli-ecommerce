@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AppColors } from '../../theme/colors';
 import CustomTextInput from '../../components/CustomTextInput';
+import ProductItem from '../../components/ProductItem';
 
 
 
@@ -12,17 +13,20 @@ const HomeScreen = () => {
 
   return (
     <ScreenWrapper>
+
       {/* top bar */}
       <View style={styles.homeTopBar}>
         <Text style={styles.homeLabel}>Discover</Text>
+        <TouchableOpacity>
         <View style={styles.homeIconWrapper}>
           <Ionicons name="bag-handle-outline" size={28} />
           <View style={styles.cartBadge}>
             <Text style={styles.badgeText} >0</Text>
           </View>
         </View>
+        </TouchableOpacity>
       </View>
-
+      <ScrollView>
       {/* search section */}
       <View style={styles.inputWrapper} >
         <CustomTextInput
@@ -54,6 +58,16 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
 
+      {/* Categories section*/}
+      <View style={styles.productListWrapper}>
+      <ProductItem />
+      <ProductItem />
+      <ProductItem />
+      <ProductItem />
+      <ProductItem />
+      <ProductItem />
+      </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -113,6 +127,7 @@ const styles = StyleSheet.create({
   },
   categoriesWrapper:{
     flexDirection:'column',
+    marginBottom:30,
   },
   categoriesHeader:{
     flexDirection:'row',
@@ -153,4 +168,12 @@ const styles = StyleSheet.create({
     color:AppColors.mainColor,
     fontWeight:'bold',
   },
+  productListWrapper:{
+    flexDirection:'row',
+    // gap:20,
+    justifyContent:'space-between',
+    flexWrap:'wrap',
+
+  },
+
 });
