@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 const SearchScreen = () => {
   return (
-    <View>
+    <ScreenWrapper>
       <Text>SearchScreen</Text>
-    </View>
+    </ScreenWrapper>
   );
 };
 

@@ -76,9 +76,9 @@ export const RootStackScreen = () => {
       tabBarInactiveTintColor: 'gray',
     })} >
       <RootStack.Screen name="Home" options={{headerShown: false}} component={HomeScreen} />
-      <RootStack.Screen name="Search" component={SearchScreen} />
-      <RootStack.Screen name="Cart" component={CartScreen} />
-      <RootStack.Screen name="Profile" component={ProfileScreen} />
+      <RootStack.Screen name="Search" options={{headerShown: false}}  component={SearchScreen} />
+      <RootStack.Screen name="Cart"  options={{headerShown: false}} component={CartScreen} />
+      <RootStack.Screen name="Profile" options={{headerShown: false}} component={ProfileScreen} />
     </RootStack.Navigator>
   );
 };

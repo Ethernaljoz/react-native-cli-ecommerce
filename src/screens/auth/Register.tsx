@@ -40,12 +40,15 @@ const RegisterScreen = () => {
         Toast.success('Account creates successfuly');
         navigation.navigate('Login');
 
-      } catch (error:any) {
-        Toast.error(`Error ${error?.data.message}`);
-      }
+      }catch(error : unknown){
+            if (error instanceof Error) {
+              console.error('Custom error:', error.message);
+              Toast.error(`error ${error.message}`);
+            } else {
+              Toast.error(`Unknown error : ${(error as Error).message}`);
+            }
+          }
     };
-
-
   const {
     control,
     handleSubmit,

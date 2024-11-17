@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   cardWrapper:{
     width:'100%',
-    height:180,
+    height:200,
     marginTop:30,
     marginBottom:25,
     borderRadius:20,

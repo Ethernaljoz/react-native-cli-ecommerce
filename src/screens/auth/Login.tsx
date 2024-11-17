@@ -38,8 +38,13 @@ const LoginScreen = () => {
       dispatch(setCredentials({...res}));
       Toast.success('login successfully');
 
-    }catch(error : any){
-      Toast.error(`error ${error?.data.message}`);
+    }catch(error : unknown){
+      if (error instanceof Error) {
+        console.error('Custom error:', error.message);
+        Toast.error(`error ${error.message}`);
+      } else {
+          Toast.error(`Unknown error : ${(error as Error).message}`);
+      }
     }
   };
   const { control, handleSubmit,formState:{ errors } } = useForm<LoginSchemaType>(
