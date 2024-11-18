@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import React from 'react';
 import { AppColors } from '../theme/colors';
-// import imagess from '../assets/'
+
+
 const ProductItem = () => {
     const { width } = useWindowDimensions();
   return (

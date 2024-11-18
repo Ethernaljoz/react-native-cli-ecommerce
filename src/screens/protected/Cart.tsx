@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import {AppColors} from '../../theme/colors';
 import CartItem from '../../components/CartItem';
 
 const CartScreen = () => {
+const tab = [1,2,3,4,5,6,7];
   return (
     <ScreenWrapper>
       <View style={styles.homeTopBar}>
@@ -20,9 +21,17 @@ const CartScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View>
-        <CartItem />
-      </View>
+      <View style={{flex:1}}>
+        <View style={{flex:0.8}}>
+
+        <FlatList
+        data={tab}
+        renderItem={({item})=> <CartItem />}
+        keyExtractor={(item)=> item.toString()}
+        showsVerticalScrollIndicator={false}
+        />
+        </View>
+
 
       <View style={styles.chechoutWrapper}>
         <Text>checkout</Text>
@@ -30,6 +39,9 @@ const CartScreen = () => {
                   <Text style={styles.pressableText}>checkout</Text>
         </Pressable>
         </View>
+
+      </View>
+
     </ScreenWrapper>
   );
 };
@@ -40,6 +52,7 @@ const styles = StyleSheet.create({
   homeTopBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom:10,
   },
   homeLabel: {
     fontSize: 30,
@@ -54,19 +67,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chechoutWrapper: {
-    position: 'absolute',
     backgroundColor: AppColors.backgroundColor,
-    // padding: 10,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // justifyContent:'flex-end',
-    // alignItems:'flex-start',
-    width:'100%',
-    borderTopWidth:1,
+    padding: 10,
+    flex:0.2,
+    borderTopWidth:2,
     borderTopColor: AppColors.textColor,
-    // marginHorizontal:20,
-    bottom:20,
-    // right:0,
   },
   pressableStyle: {
     width: '100%',

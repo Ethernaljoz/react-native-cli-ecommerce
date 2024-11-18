@@ -1,15 +1,18 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AppColors } from '../../theme/colors';
 import CustomTextInput from '../../components/CustomTextInput';
 import ProductItem from '../../components/ProductItem';
+import CategoryItem from '../../components/CategoryItem';
 
 
 
 const HomeScreen = () => {
   const [inputValue, setInputValue] = useState('');
+  const [selectCategory, setSelectCategory] = useState('All');
+  const category = [ 'All','Smartphones', 'Headphones','Laptops','Shoes','T-shirt','Beauty'];
 
   return (
     <ScreenWrapper>
@@ -50,12 +53,13 @@ const HomeScreen = () => {
           <Text style={styles.categoriesTitleTwo}>See all</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={styles.categoriesContent}><Text style={styles.categoriesContentText}>All</Text></View>
-          <View style={styles.categoriesContentOutline}><Text style={styles.categoriesContentTextOutline}>Smartphones</Text></View>
-          <View style={styles.categoriesContentOutline}><Text style={styles.categoriesContentTextOutline}>Headphones</Text></View>
-          <View style={styles.categoriesContentOutline}><Text style={styles.categoriesContentTextOutline}>Laptops</Text></View>
-        </ScrollView>
+        <FlatList
+        data={category}
+        renderItem={({item})=> <CategoryItem item={item} selectCategory={selectCategory} setSelectCategory ={setSelectCategory} />}
+        keyExtractor={(item => item)}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+         />
       </View>
 
       {/* Categories section*/}
@@ -142,31 +146,6 @@ const styles = StyleSheet.create({
   categoriesTitleTwo:{
     fontSize:16,
     color:AppColors.mainColor,
-  },
-  categoriesContent:{
-    paddingHorizontal:20,
-    paddingVertical:10,
-    backgroundColor:AppColors.mainColor,
-    borderRadius: 10,
-    marginRight:20,
-  },
-  categoriesContentText:{
-    fontSize:16,
-    color:AppColors.textColor,
-    fontWeight:'bold',
-  },
-  categoriesContentOutline:{
-    paddingHorizontal:20,
-    paddingVertical:10,
-    borderRadius: 10,
-    marginRight:20,
-    borderWidth:2,
-    borderColor:AppColors.mainColor,
-  },
-  categoriesContentTextOutline:{
-    fontSize:16,
-    color:AppColors.mainColor,
-    fontWeight:'bold',
   },
   productListWrapper:{
     flexDirection:'row',
