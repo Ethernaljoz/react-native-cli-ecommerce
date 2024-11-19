@@ -9,13 +9,15 @@ const CartScreen = () => {
 const tab = [1,2,3,4,5,6,7];
   return (
     <ScreenWrapper>
-      <View style={styles.homeTopBar}>
-        <View style={styles.homeIconWrapper}>
+      <View style={styles.cartTopBar}>
+        <TouchableOpacity>
+        <View style={styles.cartIconWrapper}>
           <Ionicons name="chevron-back" size={28} />
         </View>
-        <Text style={styles.homeLabel}>Cart</Text>
+        </TouchableOpacity>
+        <Text style={styles.cartLabel}>Cart</Text>
         <TouchableOpacity>
-          <View style={styles.homeIconWrapper}>
+          <View style={styles.cartIconWrapper}>
             <Ionicons name="ellipsis-horizontal" size={28} />
           </View>
         </TouchableOpacity>
@@ -49,16 +51,16 @@ const tab = [1,2,3,4,5,6,7];
 export default CartScreen;
 
 const styles = StyleSheet.create({
-  homeTopBar: {
+  cartTopBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom:10,
   },
-  homeLabel: {
+  cartLabel: {
     fontSize: 30,
     color: AppColors.textColor,
   },
-  homeIconWrapper: {
+  cartIconWrapper: {
     position: 'relative',
     backgroundColor: AppColors.textColor,
     padding: 10,

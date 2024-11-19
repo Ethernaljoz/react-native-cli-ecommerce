@@ -12,6 +12,7 @@ import CartScreen from './src/screens/protected/Cart';
 import ProfileScreen from './src/screens/protected/Profile';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AppColors } from './src/theme/colors';
+import DetailScreen from './src/screens/protected/Detail';
 
 export type AuthStackParams = {
   Welcome : undefined;
@@ -79,6 +80,7 @@ export const RootStackScreen = () => {
       <RootStack.Screen name="Search" options={{headerShown: false}}  component={SearchScreen} />
       <RootStack.Screen name="Cart"  options={{headerShown: false}} component={CartScreen} />
       <RootStack.Screen name="Profile" options={{headerShown: false}} component={ProfileScreen} />
+      <RootStack.Screen name="Detail" options={{headerShown: false}} component={DetailScreen} />
     </RootStack.Navigator>
   );
 };

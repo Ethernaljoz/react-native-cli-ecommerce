@@ -68,24 +68,22 @@ const styles = StyleSheet.create({
     gap: 20,
     justifyContent:'space-between',
     marginBottom: 15,
-    // borderBottomWidth: 2,
-    // borderBottomColor: AppColors.textColor,
     paddingBottom: 10,
   },
   cartImageWrapper: {
     backgroundColor: AppColors.textColor,
-    borderRadius: 15,
+    borderRadius: 10,
+    overflow:'hidden',
+
   },
   imageStyle: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    borderRadius: 15,
   },
   cartContent: {
       flexDirection:'row',
       gap:20,
-    //   justifyContent:'space-between',
     alignItems: 'center',
   },
   cartHeader: {

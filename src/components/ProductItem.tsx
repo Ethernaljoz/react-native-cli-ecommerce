@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
     productImageWrapper:{
         backgroundColor:AppColors.textColor,
         borderRadius:15,
+        overflow:'hidden',
     },
     imageStyle:{
         width:'100%',
         height:'100%',
         objectFit:'cover',
-        borderRadius:15,
        },
     productContent:{
         flexDirection:'row',
